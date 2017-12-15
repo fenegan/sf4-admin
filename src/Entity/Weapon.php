@@ -2,28 +2,33 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * Weapon
+ * @ORM\Entity(repositoryClass="App\Repository\WeaponRepository")
  */
 class Weapon
 {
     /**
-     * @var integer
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=100)
      */
     private $name;
 
     /**
-     * @var integer
+     * @ORM\Column(type="integer")
      */
     private $power;
 
     /**
-     * @var \App\Entity\Character
+     * @ORM\ManyToOne(targetEntity="Character", inversedBy="weapons")
+     * @ORM\JoinColumn(name="character_id", referencedColumnName="id")
      */
     private $character;
 

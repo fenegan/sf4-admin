@@ -2,28 +2,32 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
- * Character
+ * @ORM\Entity(repositoryClass="App\Repository\CharacterRepository")
  */
 class Character
 {
     /**
-     * @var integer
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
+     * @ORM\Column(type="string", length=100)
      */
     private $name;
 
     /**
-     * @var integer
+     * @ORM\Column(type="integer")
      */
     private $level;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @ORM\OneToMany(targetEntity="Weapon", mappedBy="character")
      */
     private $weapons;
 
