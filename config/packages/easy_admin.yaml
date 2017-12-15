@@ -1,4 +1,7 @@
 easy_admin:
+    site_name: 'DEV 2019'
+    design:
+        brand_color: '#1ABC9C'
     entities:
         # List the entity class name you want to manage
         - App\Entity\Character
