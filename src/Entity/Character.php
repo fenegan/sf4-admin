@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CharacterRepository")
+ * @ORM\Table(name="charac")
  */
 class Character
 {
@@ -27,7 +28,7 @@ class Character
     private $level;
 
     /**
-     * @ORM\OneToMany(targetEntity="Weapon", mappedBy="character")
+     * @ORM\OneToMany(targetEntity="Weapon", mappedBy="character", cascade={"persist"})
      */
     private $weapons;
 
@@ -37,6 +38,11 @@ class Character
     public function __construct()
     {
         $this->weapons = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     /**
@@ -106,6 +112,7 @@ class Character
      */
     public function addWeapon(\App\Entity\Weapon $weapon)
     {
+        $weapon->setCharacter($this);
         $this->weapons[] = $weapon;
 
         return $this;
@@ -118,6 +125,7 @@ class Character
      */
     public function removeWeapon(\App\Entity\Weapon $weapon)
     {
+        $weapon->setCharacter(NULL);
         $this->weapons->removeElement($weapon);
     }
 
